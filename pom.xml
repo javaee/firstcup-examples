@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.glassfish.javaeetutorial.firstcup</groupId>
+    <artifactId>firstcup</artifactId>
+    <version>7.0.5</version>
+    <packaging>pom</packaging>
+    <name>firstcup</name>
+    
+    <scm>
+        <connection>scm:svn:https://svn.java.net/svn/firstcup~svn/trunk/example</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/firstcup~svn/trunk/example</developerConnection>
+    </scm>
+    <issueManagement>
+        <system>IssueTracker</system>
+        <url>http://java.net/jira/browse/FIRSTCUP</url>
+    </issueManagement>
+    
+    <modules>
+        <module>firstcup-war</module>
+        <module>dukes-age</module>
+        <module>archetypes</module>
+    </modules>
+    
+    <properties>
+        <javaee.api.version>7.0</javaee.api.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+        <maven.war.plugin.version>2.3</maven.war.plugin.version>
+        <maven.license.plugin.version>1.10.b1</maven.license.plugin.version>
+    </properties>
+    
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven.war.plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>${maven.license.plugin.version}</version>
+                <configuration>
+                    <header>common/license.txt</header>
+                    <excludes>
+                        <exclude>common/**</exclude>
+                        <exclude>**/META-INF/**</exclude>
+                        <exclude>**/WEB-INF/**</exclude>
+                        <exclude>**/nbactions.xml</exclude>
+                        <exclude>**/nb-configuration.xml</exclude>
+                   </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
+</project>
