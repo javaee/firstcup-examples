@@ -78,6 +78,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <arguments>${release.arguments}</arguments>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
                 <dependencies>
                     <dependency>
