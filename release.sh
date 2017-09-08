@@ -85,5 +85,5 @@ ARGS=" $*"
 # everything supplied as argument will be provided to every maven command.
 # e.g to supply -Dmaven.skip.test or -Dmaven.repo.local=/path/to/repo
 
-mvn -B -e release:prepare -DpreparationGoals="'install -Pstaging' $ARGS" $ARGS -Pjvnet-release,release
-mvn -B -e release:perform -Dgoals="'deploy' $ARGS" $ARGS -Pjvnet-release,release
+mvn -B -e release:prepare -Prelease
+mvn -B -e release:perform -Dgoals="'deploy -Pstaging' $ARGS" $ARGS -Pjvnet-release,release
