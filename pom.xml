@@ -1,18 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.glassfish.javaeetutorial.firstcup</groupId>
-    <artifactId>firstcup</artifactId>
-    <version>7.0.5</version>
+    <parent>
+        <groupId>net.java</groupId>
+        <artifactId>jvnet-parent</artifactId>
+        <version>5</version>
+    </parent>
+    <groupId>org.glassfish.docs</groupId>
+    <artifactId>firstcup-examples</artifactId>
+    <version>8.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>firstcup</name>
     
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/firstcup~svn/trunk/example</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/firstcup~svn/trunk/example</developerConnection>
+        <connection>scm:git:git@github.com:javaee/firstcup-examples.git</connection>
+        <developerConnection>scm:sit:git@github.com:javaee/firstcup-examples.git</developerConnection>
+        <url>https://github.com/javaee/firstcup-examples</url>
     </scm>
     <issueManagement>
         <system>IssueTracker</system>
-        <url>http://java.net/jira/browse/FIRSTCUP</url>
+        <url>https://github.com/javaee/firstcup-examples/issues</url>
     </issueManagement>
     
     <modules>
@@ -22,7 +28,7 @@
     </modules>
     
     <properties>
-        <javaee.api.version>7.0</javaee.api.version>
+        <javaee.api.version>8.0</javaee.api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
         <maven.war.plugin.version>2.3</maven.war.plugin.version>
@@ -38,8 +44,8 @@
                 <version>${maven.compiler.plugin.version}</version>
                 <inherited>true</inherited>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -64,6 +70,24 @@
                    </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>${release.arguments}</arguments>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9.4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
         </plugins>
     </build>
 
