@@ -13,7 +13,7 @@
     
     <scm>
         <connection>scm:git:git@github.com:javaee/firstcup-examples.git</connection>
-        <developerConnection>scm:sit:git@github.com:javaee/firstcup-examples.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:javaee/firstcup-examples.git</developerConnection>
         <url>https://github.com/javaee/firstcup-examples</url>
     </scm>
     <issueManagement>
