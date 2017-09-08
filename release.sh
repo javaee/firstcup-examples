@@ -1,20 +1,20 @@
-#!/bin/sh
+#!/bin/bash -e
 #
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 #
-# Copyright (c) 2017 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2010-2013 Oracle and/or its affiliates. All rights reserved.
 #
 # The contents of this file are subject to the terms of either the GNU
 # General Public License Version 2 only ("GPL") or the Common Development
 # and Distribution License("CDDL") (collectively, the "License").  You
 # may not use this file except in compliance with the License.  You can
 # obtain a copy of the License at
-# https://oss.oracle.com/licenses/CDDL+GPL-1.1
-# or LICENSE.txt.  See the License for the specific
+# https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+# or packager/legal/LICENSE.txt.  See the License for the specific
 # language governing permissions and limitations under the License.
 #
 # When distributing the software, include this License Header Notice in each
-# file and include the License file at LICENSE.txt.
+# file and include the License file at packager/legal/LICENSE.txt.
 #
 # GPL Classpath Exception:
 # Oracle designates this particular file as subject to the "Classpath"
@@ -39,7 +39,7 @@
 # holder.
 #
 
-#------------------------------------------------------
+#------------------------------------------------------   
 #-- BE SURE TO HAVE THE FOLLOWING IN YOUR SETTINGS.XML
 #------------------------------------------------------
 #
@@ -49,12 +49,18 @@
 #            <username>jvnet_id</username>
 #            <password>password</password>
 #        </server>
+#        <server>
+#            <id>website.java.net</id>
+#            <username>jvnet</username>
+#            <password>password</password>
+#        </server>
 #    </servers>
 #    <profiles>
 #      <profile>
 #        <id>release</id>
 #        <properties>
-#          <release.arguments>-Dhttps.proxyHost=www-proxy.us.oracle.com -Dhttps.proxyPort=80 -Dgpg.passphrase=glassfish -Pjvnet-release</release.arguments>
+#          <user.name>jvnet_id</user.name>
+#          <release.arguments>-Dhttps.proxyHost=www-proxy.us.oracle.com -Dhttps.proxyPort=80 -Dgpg.passphrase=glassfish</release.arguments>
 #        </properties>
 #        <activation>
 #          <activeByDefault>false</activeByDefault>
@@ -65,13 +71,19 @@
 # see the following URL for gpg issues
 # https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven#HowToGeneratePGPSignaturesWithMaven-GenerateaKeyPair
 
-# login to nexus at maven.java.net and release (Close) the artifact
+# login to nexus at maven.java.net, using your jvnet crendentials, and release (Close) the artifact
 # https://maven.java.net/index.html#stagingRepositories
 
 # More information:
 # https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide#SonatypeOSSMavenRepositoryUsageGuide-8.ReleaseIt
 # http://aseng-wiki.us.oracle.com/asengwiki/display/GlassFish/Migrating+Maven+deployment+to+maven.java.net
 
-mvn -B release:prepare -Prelease
-mvn -B release:perform -Prelease
+# Note: the release process may use ssh key to interact with the SCM. If so, it will use your user.name as define in the release profile of your settings.xml.
+# Be sure to have your ssh public key exported in your java.net account.
 
+ARGS=" $*"
+# everything supplied as argument will be provided to every maven command.
+# e.g to supply -Dmaven.skip.test or -Dmaven.repo.local=/path/to/repo
+
+mvn -B -e release:prepare -DpreparationGoals="'install' $ARGS" $ARGS -Pjvnet-release,release
+mvn -B -e release:perform -Dgoals="'deploy' $ARGS" $ARGS -Pjvnet-release,release
