@@ -5,7 +5,7 @@
     <parent>
         <artifactId>firstcup-examples</artifactId>
         <groupId>org.glassfish.docs</groupId>
-        <version>8.0</version>
+        <version>8.1-SNAPSHOT</version>
     </parent>    
     <artifactId>firstcup-war</artifactId>
     <packaging>war</packaging>
